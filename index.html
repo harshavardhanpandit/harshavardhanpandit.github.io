@@ -60,12 +60,18 @@
     the determinant of a matrix, inverting a matrix etc. </p>
     
 <p> A sequential "right-looking" algorithm loops over columns and updates columns to its right based on
-    the current column. The following pseudo-code describes the algorithm:
+    the current column. The following pseudo-code describes the algorithm: </p>
     
-    <code>
-    code snippet
-    </code>
-  </p>
+ <code>
+    for i=1 to N
+      for j= i+1 to N
+        A(j,i) = A(j,i)/A(i,i)
+        for k=i+1 to N  
+          A(j,k) = A(j,k) - A(i,k)*A(j,i)
+        end
+      end
+    end  
+ </code>    
 <!-- <img src="images/test_image.jpg" alt="W3Schools.com" width="104" height="142"> -->
 
 <h2 style="color:white">
