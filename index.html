@@ -122,17 +122,28 @@
 <h2 style="color:white">
 <a id="Resources" class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resources</h2>
 
-<p>We will be using a GPU on one of the GHC machines. </p>
+<p>We will be using a GPU on one of the GHC machines. The references for the LU and QR decompositions are cited
+   as [1] and [2] respectively.</p>
 
 <h2 style="color:white">
 <a id="Goals and Deliverables" class="anchor" href="#Goals-and-Deliverables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Goals and Deliverables</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. \n Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>The goal of the project is to develop a fast library in CUDA to implement atleast two matrix factorization
+   routines.</p>
+<p>   
+   We expect to deliver an efficient, highly optimized implementation of the two routines on an NVIDIA GPU.
+   Moreover, if time permits, we would also extend our project to include a similar efficient implementation of 
+   Cholesky decomposition. Matrix multiplication is another application we would like to implement as a part of the
+   library. Though not a decomposition routine, we believe it would be a good challenge to implement a optimized 
+   matrix multiplication routine as near in performance as possible to state-of-the-art implementations. The 
+   performance of the library will be measured by plotting speedup graphs and comparing them with state-of-the-art
+   libraries.
+</p>
 
 <h2 style="color:white">
 <a id="Platform Choice" class="anchor" href="#Platform-Choice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platform Choice</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>GPUs are suitable for matrix operations since they offer a huge amount of data parallelism.</p>
 
 <h2 style="color:white">
 <a id="Schedule" class="anchor" href="#Schedule" aria-hidden="true"><span class="octicon octicon-link"></span></a>Schedule</h2>
