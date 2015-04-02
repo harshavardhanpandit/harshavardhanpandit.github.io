@@ -54,7 +54,7 @@
 <h4 style="color:white">
 <a id="LU Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
 
-<p> LU decomposition involves splitting a regular matrix A into a product of a lower triangular matrix L
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
     and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
     in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
     the determinant of a matrix, inverting a matrix etc. </p>
@@ -86,7 +86,14 @@
 <h4 style="color:white">
 <a id="LU Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>
+  The sequential algorithm for the LU decomposition will have to be modified in order to efficiently parallelize 
+  it. The data dependencies in the algorithm in outermost loop will have to be dealt with. The algorithm as it is
+  currently, does not have independent loop iterations. Also, the 3 different loops within a matrix imply that there
+  are different access patterns possible and an efficient implementation will use one which best exploits locality.
+  The challenging part would be to implement a parallel version of the algorithm which best takes advantage of the
+  locality in the problem and efficiently uses GPU resources such as shared memory.
+</p>
 
 <h4 style="color:white">
 <a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
