@@ -79,10 +79,18 @@
 <a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
  
  <p>
-   QR factorization splits a rectangular MxN matrix A into two matrices Q and R such that A=QR. Here, Q is an 
-   orthogonal matrix whereas R is an upper triangular matrix. This decomposition too is very useful in finding
-   solutions to a system of linear equations. QR decomposition is alsowidely used to solve the linear as well as
+   QR factorization splits a rectangular MxN matrix A into two matrices Q and R such that A=QR. Here, Q is a 
+   MxM orthogonal matrix whereas R is a NxN upper triangular matrix. This decomposition too is very useful in finding
+   solutions to a system of linear equations. QR decomposition is also widely used to solve the linear as well as
    the nonlinear least squares problem.
+ </p>
+ 
+ <p>
+   The algorithm to decompose a matrix into QR factors is based on the so called Givens rotations which are
+   orthogonal. Using a sequence of givens rotations the given matrix can be transformed to an upper 
+   triangular matrix. Givens rotations can be systematically applied to successive pairs of rows of matrix A
+   to zero entire strict lower triangle. Parallelizing the computation of Givens rotations is one avenue but 
+   there could also exist an opportunity to parallelize the step of applying this transformation to pairs of rows.
  </p>
 <!-- <img src="images/test_image.jpg" alt="W3Schools.com" width="104" height="142"> -->
 
@@ -105,10 +113,16 @@
 <h4 style="color:white">
 <a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
 
+<p>
+  The challenge in this routine is to come up with an algorithm which reduces the amount of synchronization needed. 
+  The idea is to exploit parallelism in as many steps of the algorithm as we can by efficiently implementing it on
+  a GPU.
+</p>
+
 <h2 style="color:white">
 <a id="Resources" class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resources</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>We will be using a GPU on one of the GHC machines. </p>
 
 <h2 style="color:white">
 <a id="Goals and Deliverables" class="anchor" href="#Goals-and-Deliverables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Goals and Deliverables</h2>
@@ -156,18 +170,13 @@
 <p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
 <h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="References" class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+ <ol type="1">
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ol> 
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
-</html>
