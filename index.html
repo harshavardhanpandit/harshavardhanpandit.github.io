@@ -15,69 +15,244 @@
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 2px;
+    }
+    th,td  {
+    text-align: center;
+    } 
+    </style>
 
+  <style>
+  bottom-three {
+     margin-bottom: 10cm;
+  }
+</style>
+body {
+    background-image: url('back.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+} 
   </head>
   <body>
     <div class="wrapper">
-    
+  
       <section>
         <div id="title">
-          <h1>cuRE: CUDA R extensions </h1>
+          <h1>"CUDA Factor": A library of Matrix Factorization routines  </h1>
           <p> Harshavardhan Pandit and Ravi Chandra Bandlamudi</p>
           <hr>
         </div>
 
-        <h2 style="color:white">
-<a id="Summary" class="anchor" href="#Summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+<br>
+<br>
+<h1 style="color:SkyBlue">
+<a id="Index" class="bottom-three" href="#Index" aria-hidden="true"><span class="octicon octicon-link"></span></a><center><bottom-three><a href="#Checkpoint">Checkpoint</a> &nbsp; :: &nbsp; <a href="#Proposal">Proposal</a></bottom-three></center></h2>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<p> We will be developing a library of R interfaces for optimized CUDA functions. The aim is to enable faster computation of commonly used R functions.</p>
+
+
+<h1 style="color:Gold">
+<a id="Checkpoint" class="bottom-three" href="#Checkpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a><center>Checkpoint</center></h2>
+
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>
+    
+
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>
+    
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>  
+    
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>
+    
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>
+
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>    
+<h1 style="color:Gold">
+<a id="Proposal" class="bottom-three" href="#Proposal" aria-hidden="true"><span class="octicon octicon-link"></span></a><center>Proposal</center></h2>
+
+<h2 style="color:white">
+<a id="Summary" class="bottom-three" href="#Summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p> We will be developing a library of GPU-accelerated optimized matrix factorization routines in CUDA.</p>
 
 
 <h2 style="color:white">
 <a id="Background" class="anchor" href="#Background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h2>
 
-<p>R is a popular open-source platform used statistical computing. However, peforming statistical and/or linear algebraic operations in R is very time consuming. Implementing particular commonly-used functions in CUDA and accessing these functions from R, can significantly improve the performance of R functions (eg: <a href="https://developer.nvidia.com/hiplar"> https://developer.nvidia.com/hiplar</a> and h <a href="ttp://heather.cs.ucdavis.edu/~matloff/rth.html#down"> ttp://heather.cs.ucdavis.edu/~matloff/rth.html#down</a>). Linear algebraic functions such as matrix multipilcation, least squares etc stand to benefit from such GPU acceleration. </p>
+<p> The factorization routines focused on in this project are LU and QR (and, if time permits, Cholesky)
+    decomposition. Both these function involve splitting a given matrix into a product of two matrices. </p>
 
+<h4 style="color:white">
+<a id="LU Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
+
+<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
+    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
+    the determinant of a matrix, inverting a matrix etc. </p>
+    
+<p> A sequential "right-looking" algorithm loops over columns and updates columns to its right based on
+    the current column. The following pseudo-code describes the algorithm: </p>
+    
+ <code>
+ <pre>
+    for i=1 to N  /*loop over columns*/
+      for j= i+1 to N
+        A(j,i) = A(j,i)/A(i,i)  /*update L*/
+        for k=i+1 to N  
+          A(j,k) = A(j,k) - A(i,k)*A(j,i)  /*update U*/
+        end
+      end
+    end  
+  </pre>  
+ </code>    
+ 
+<h4 style="color:white">
+<a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
+ 
+ <p>
+   QR factorization splits a rectangular MxN matrix A into two matrices Q and R such that A=QR. Here, Q is a 
+   MxM orthogonal matrix whereas R is a NxN upper triangular matrix. This decomposition too is very useful in finding
+   solutions to a system of linear equations. QR decomposition is also widely used to solve the linear as well as
+   the nonlinear least squares problem.
+ </p>
+ 
+ <p>
+   The algorithm to decompose a matrix into QR factors is based on the so called Givens rotations which are
+   orthogonal. Using a sequence of givens rotations the given matrix can be transformed to an upper 
+   triangular matrix. Givens rotations can be systematically applied to successive pairs of rows of matrix A
+   to zero entire strict lower triangle. Parallelizing the computation of Givens rotations is one avenue but 
+   there could also exist an opportunity to parallelize the step of applying this transformation to pairs of rows.
+ </p>
 <!-- <img src="images/test_image.jpg" alt="W3Schools.com" width="104" height="142"> -->
 
 <h2 style="color:white">
 <a id="Challenge" class="anchor" href="#Challenge" aria-hidden="true"><span class="octicon octicon-link"></span></a>Challenge</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<h4 style="color:white">
+<a id="LU Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
+
+<p>
+  The sequential algorithm for the LU decomposition will have to be modified in order to efficiently parallelize 
+  it. The data dependencies in the algorithm in outermost loop will have to be dealt with. The algorithm in its
+  current form, does not have independent outer loop iterations. Also, the 3 different loops within a matrix imply
+  that there are different access patterns possible and an efficient implementation will use one which best exploits locality.
+  The challenging part would be to implement a parallel version of the algorithm which best takes advantage of the
+  locality in the problem and efficiently uses GPU resources such as shared memory. Thus, the problem should be an
+  interesting opportunity to apply platform-specific and application-specific optimizations.
+</p>
+
+<h4 style="color:white">
+<a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
+
+<p>
+  The challenge in this routine is to come up with an algorithm which reduces the amount of synchronization needed. 
+  The idea is to exploit parallelism in as many steps of the algorithm as we can by efficiently implementing it on
+  a GPU.
+</p>
 
 <h2 style="color:white">
 <a id="Resources" class="anchor" href="#Resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resources</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>We will be using a GPU on one of the GHC machines. The references for the LU and QR decompositions are cited
+   as [1] and [2] respectively.</p>
 
 <h2 style="color:white">
 <a id="Goals and Deliverables" class="anchor" href="#Goals-and-Deliverables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Goals and Deliverables</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. \n Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>The goal of the project is to develop a fast library in CUDA to implement atleast two matrix factorization
+   routines.</p>
+<p>   
+   We expect to deliver an efficient, highly optimized implementation of the two routines on an NVIDIA GPU.
+   Moreover, if time permits, we would also extend our project to include a similar efficient implementation of 
+   Cholesky decomposition. Matrix multiplication is another application we would like to implement as a part of the
+   library. Though not a decomposition routine, we believe it would be a good challenge to implement a optimized 
+   matrix multiplication routine as near in performance as possible to state-of-the-art implementations. The 
+   performance of the library will be measured by plotting speedup graphs and comparing them with state-of-the-art
+   libraries. Another extension is to provide a R interface to these optimized CUDA routines, which was the original
+   inspiration behind the project - making R code faster by GPU acceleration.
+</p>
 
 <h2 style="color:white">
 <a id="Platform Choice" class="anchor" href="#Platform-Choice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platform Choice</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>GPUs are suitable for matrix operations since they offer a huge amount of data parallelism.</p>
 
 <h2 style="color:white">
 <a id="Schedule" class="anchor" href="#Schedule" aria-hidden="true"><span class="octicon octicon-link"></span></a>Schedule</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<table style="width:100%">
+  <tr>
+    <th>Day</th>
+    <th>Planned Work</th>		
+  </tr>
+  <tr>
+    <td>April 6</td>
+    <td>Finalize proposal, Research efficient implementations </td>		
+  </tr>
+  <tr>
+    <td>April 13</td>
+    <td>Optimized LU Factorization routine</td>		
+  </tr>
+  <tr>
+    <td>April 20</td>
+    <td>Basic QR Factorization routine </td>		
+  </tr>
+  <tr>
+    <td>April 27</td>
+    <td>Optimize QR Factorization </td>		
+  </tr>
+  <tr>
+    <td>May 4</td>
+    <td>Cholesky/Matrix Multiply </td>		
+  </tr>
+  <tr>
+    <td>May 11</td>
+    <td>Finish final report and prepare presentation </td>		
+  </tr>
+</table>
+
 
 <h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="References" class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+ <ol type="1">
+  <li> Bandara, H. M. D. M., and D. N. Ranasinghe. "Effective GPU Strategies for LU Decomposition". Technical report, University of Colombo, Colombo, Sri Lanka, 2010.</li>
+  <li>Kerr, Andrew, Dan Campbell, and Mark Richards. "QR decomposition on GPUs." Proceedings of 2nd Workshop on General Purpose Processing on Graphics Processing Units. ACM, 2009.</li>
+</ol> 
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
-</html>
