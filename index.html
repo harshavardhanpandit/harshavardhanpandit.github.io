@@ -69,7 +69,7 @@
     
 
 <p> We faced some problems initially implementing the blocked version in CUDA, mainly related to array indexing 
-    and memory acceses.  We also set up benchmarks to compare our rotines to. The in-built
+    and memory acceses.  We also set up benchmarks to compare our routines to. The in-built
     CUBLAS (CUDA Basic Linear Algebra Subroutines) library is used as a reference. However, the shared memory version
     of LU factorization still has some bugs and fails for higher block sizes, an issue which we are still working on.
     For this reason, timing the LU routine was deferred. </p>
@@ -79,7 +79,7 @@
     a naive CUDA one. With the naive CUDA version, our implementation is 2-3 times worse than the CUBLAS reference
     library for higher matrix dimensions.</p>  
     
-  <center><table align="center">
+  <center><table align="center" style="width:100%">
   <tr>
     <th>Matrix Size</th>
     <th>CUBLAS Time</th>
