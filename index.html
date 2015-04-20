@@ -61,21 +61,44 @@
 <h1 style="color:Gold">
 <a id="Checkpoint" class="bottom-three" href="#Checkpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a><center>Checkpoint</center></h2>
 
-<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
-    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
-    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
-    the determinant of a matrix, inverting a matrix etc. </p>
+<p> We have thus far made progress with LU and QR factorizations, as well as optimized matrix multiply 
+    (which was one of the "nice to haves"). To begin with, a simple sequential algorithm was implemented
+    to compute the LU factorization. We then implemented a naive CUDA version of the same and began optimizing
+    it. The performance of the LU factorization depends heavily on the memory access patterns and two different
+    approaches to accessing memory were tried out. The matrix was divided into blocks and row-wise and column-wise
+    accesses within each block were tried out. Another optimization was to use shared memory within each block to
+    store the data which is accesses by all threads within the block.</p>
     
 
-<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
-    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
-    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
-    the determinant of a matrix, inverting a matrix etc. </p>
+<p> We faced some problems initially implementing the blocked version in CUDA, mainly related to array indexing 
+    and memory acceses.  We also set up benchmarks to compare our rotines to. The in-built
+    CUBLAS (CUDA Basic Linear Algebra Subroutines) library is used as a reference. However, the shared memory version
+    of LU factorization still has some bugs and fails for higher block sizes, an issue which we are still working on.
+    For this reason, timing the LU routine was deferred. </p>
     
-<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
-    and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
-    in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
-    the determinant of a matrix, inverting a matrix etc. </p>  
+<p> We simultaneously began implementing the QR factorization routine which is characterized not by access patterns
+    but matrix-matrix and matrix-vector multiplications. Again, a sequential version was first implemeneted and then
+    a naive CUDA one. With the naive CUDA version, our implementation is 2-3 times worse than the CUBLAS reference
+    library for higher matrix dimensions.</p>  
+    
+  <table style="width:70%">
+  <tr>
+    <th>Matrix Size</th>
+    <th>CUBLAS Time</th>
+    <th>Our Time</th>
+  </tr>
+  <tr>
+    <td>4096 x 1024</td>
+    <td>47.88s</td>
+    <td>155.41s</td>		
+  </tr>
+  <tr>
+    <td>4096 x 2048</td>
+    <td>174.01s</td>
+    <td>340.02s</td>		
+  </tr>
+  </table>
+  <p><center>Preliminary results</center></p>
     
 <p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
     and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
