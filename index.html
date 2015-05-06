@@ -67,9 +67,9 @@
 <p>  We developed a library of GPU-accelerated optimized matrix factorization routines in CUDA. The routines
     currently implemented are:
     <ul>
-    <li><a href="#LU Decomposition" style="color:DarkTurquoise">LU Factorization</a></li> 
-    <li><a href="#QR Decomposition" style="color:DarkTurquoise">QR Factorization</a></li> 
-    <li><a href="#Cholesky Decomposition" style="color:DarkTurquoise">Cholesky Factorization</a></li> 
+    <li><a href="#LU Decomposition1" style="color:DarkTurquoise">LU Factorization</a></li> 
+    <li><a href="#QR Decomposition1" style="color:DarkTurquoise">QR Factorization</a></li> 
+    <li><a href="#Cholesky Decomposition1" style="color:DarkTurquoise">Cholesky Factorization</a></li> 
     </ul>
     We have also designed an R interface to use the routines in this library in R.</p>
     
@@ -86,13 +86,13 @@
 <a id="Results" class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h2>
 
 <h4 style="color:white">
-<a id="LU Decomposition" class="anchor" href="#LU1" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
+<a id="LU Factorization1" class="anchor" href="#LU1" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
 
 <h4 style="color:white">
-<a id="QR Decomposition" class="anchor" href="#QR1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
+<a id="QR Factorization1" class="anchor" href="#QR1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
 
 <h4 style="color:white">
-<a id="Cholesky Decomposition" class="anchor" href="#Chol" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Decomposition</h4>
+<a id="Cholesky Factorization1" class="anchor" href="#Chol" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
 
 <h2>
 <a id="References" class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
@@ -149,7 +149,7 @@
   
   <p><center>Preliminary results</center></p>
     
-<p> Because of the fact that QR decomposition has many matrix-matrix multiplications, it makes sense for us to
+<p> Because of the fact that QR Factorization has many matrix-matrix multiplications, it makes sense for us to
     focus on one of our "nice to haves" - the matrix multiplication routine - and optimize it at this stage. One
     of the optimizations which we think will improve our run time performance of the QR routine is to modify the
     algorithm slightly so that the memory allocations are optimal. Another major one would be to use optimized 
@@ -176,12 +176,12 @@
 <a id="Background" class="anchor" href="#Background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h2>
 
 <p> The factorization routines focused on in this project are LU and QR (and, if time permits, Cholesky)
-    decomposition. Both these function involve splitting a given matrix into a product of two matrices. </p>
+    Factorization. Both these function involve splitting a given matrix into a product of two matrices. </p>
 
 <h4 style="color:white">
-<a id="LU Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Decomposition</h4>
+<a id="LU Factorization" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
 
-<p> LU decomposition involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
+<p> LU Factorization involves splitting a regular NxN matrix A into a product of a lower triangular matrix L
     and an upper triangular matrix U using Gaussian elimination. This factorization finds applications
     in simplifying linear algebra operations such solving a system of linear equations Ax = b, calculating
     the determinant of a matrix, inverting a matrix etc. </p>
@@ -203,7 +203,7 @@
  </code>    
  
 <h4 style="color:white">
-<a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
+<a id="QR Factorization" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
  
  <p>
    QR factorization splits a rectangular MxN matrix A into two matrices Q and R such that A=QR. Here, Q is a 
@@ -238,7 +238,7 @@
 </p>
 
 <h4 style="color:white">
-<a id="QR Decomposition" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Decomposition</h4>
+<a id="QR Factorization" class="anchor" href="#LU" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
 
 <p>
   The challenge in this routine is to come up with an algorithm which reduces the amount of synchronization needed. 
@@ -260,7 +260,7 @@
 <p>   
    We expect to deliver an efficient, highly optimized implementation of the two routines on an NVIDIA GPU.
    Moreover, if time permits, we would also extend our project to include a similar efficient implementation of 
-   Cholesky decomposition. Matrix multiplication is another application we would like to implement as a part of the
+   Cholesky Factorization. Matrix multiplication is another application we would like to implement as a part of the
    library. Though not a decomposition routine, we believe it would be a good challenge to implement a optimized 
    matrix multiplication routine as near in performance as possible to state-of-the-art implementations. The 
    performance of the library will be measured by plotting speedup graphs and comparing them with state-of-the-art
