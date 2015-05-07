@@ -203,7 +203,9 @@ and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 <p>A parallel version of the QR factorization algorithm was implemented on the <a href="http://www.nvidia.com/object/tesla-servers.html" 
 style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on the <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines. To begin with, the sequential algorithm was implemented using the pseudo-code in [3].</p>
 
-<p>As a first simple approach, we started by implementing a naive CUDA version of the Householder QR factorization. </p>
+<p>As a first simple approach, we started by implementing a naive CUDA version of the Householder QR factorization. QR was much more challenging than the LU factorization especially since the sizes of the matrices involved in the "Update" phases (refer to pseudo-code above) vary every iteration. Hence, dynamic memory allocations within the for loop were abundant in the first implementation. Also, to keep things simple the householder function (which involves calculating norms) was implemented on the host side instead of the GPU. This meant a memory transfer over the bus every iteration.</p>
+
+<p>Several iterations of optimizations followed this basic CUDA implementation since it wasn't close to the reference cuBLAS library implementation. The first thing which we felt could have been the bottle neck was the expensive memory transfer over the PCI-e bus every iteration. To get rid of this, the implementation of Householder function was moved to the GPU instead of the host CPU. This was done by storing the squares of the input vector (recall that the (l<sub>2</sub>) norm is the square root of the sum of the squares of the elements in a vector) in an array and performing an <a href="http://15418.courses.cs.cmu.edu/spring2015/lecture/exclusivescan" style="color:DarkTurquoise">exclusive scan</a> on this array.</p>
 
 <h4 style="color:white">
 <a id="Cholesky Factorization3" class="anchor" href="#Chol3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
