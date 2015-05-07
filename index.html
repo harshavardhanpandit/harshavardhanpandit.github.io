@@ -152,8 +152,8 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>mxm</sup></b>
  </code>
  
  <p>For the focus of this project, the only important things to know about the above psedo-code are - one,
-  finding the householder vector involves calculating norms of vectors and two, the update A, Y & W parts
-  consist of one or more matrix-matrix multiplications. As the size of the input matrix increases,
+  finding the householder vector involves <b>calculating norms</b> of vectors and two, the update A, Y & W parts
+  consist of one or more <b>matrix-matrix multiplications</b>. As the size of the input matrix increases,
   these matrix products start becoming more and more computationally intensive. Therefore, unlike in the case of the LU
   factorization where data locality played an important role, here the emphasis is on matrix-matrix multiplications.
   Also worth noting is that within each of the for loop denoted in the pseudo-code, the iterations are not
