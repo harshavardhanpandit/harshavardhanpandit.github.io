@@ -58,13 +58,19 @@
               <a href="#Proposal" style="text-decoration:underline; color:DarkTurquoise">Proposal</a></bottom-three></center></h2>
           <br>
           <br>
-          <br>
+          <a href="#Competition" style="text-decoration:underline; color:Crimson">Spring 2015 Parallelism Competition</a></bottom-three></center>
           <br>
           <br>
           <br>
           <br>    
         </div>
 
+<h1 style="color:Crimson">
+<a id="Competition" class="anchor" href="#Competition" aria-hidden="true"><span class="octicon octicon-link"></span></a><center>Spring 2015 Parallelism Competition</center></h2>
+
+<p>Welcome to our project page for the Spring 2015 Parallelism Competition! This section</p>
+
+<br><br>
 
 <h1 style="color:Aqua">
 <a id="Writeup" class="anchor" href="#Writeup" aria-hidden="true"><span class="octicon octicon-link"></span></a><center>Writeup</center></h2>
@@ -246,7 +252,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
  <p>The following graph shows a comparison between our implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
 
 <center><img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="middle"></center> 
- <p><center>Performance of Our QR Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
+ <p><center>Performance of our QR Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
 
 <h4 style="color:white">
 <a id="Cholesky Factorization1" class="anchor" href="#Chol" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
@@ -259,10 +265,10 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 <a id="R interface" class="anchor" href="#R interface" aria-hidden="true"><span class="octicon octicon-link"></span></a>R Interface</h4>
 
 <!-- -->
-<p>One of the "nice to haves" of our project was designing a R interface for our library in order to enable the calling of our optimized routines from within R. For this purpose, a R wrapper was written around the CUDA QR routine and a test was created to compare the performance of the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">in-built qr() function</a> in R and the optimized QR routine from "CUDA Factor" library. These tests were carried out on the  <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines, which have R installed on them. </p> 
+<p>One of the "nice to haves" of our project was designing a R interface for our library in order to enable the calling of our optimized routines from within R. For this purpose, a R wrapper was written around the CUDA QR routine and a test was created to compare the performance of the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">in-built qr() function</a> in R and the optimized QR routine from our "CUDA Factor" library. These tests were carried out on the  <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines, which have R installed on them. </p> 
 
 <center><img class="resize" src="images/R_vs_Ours.png" alt="R interface graph" align="middle"></center> 
- <p><center>Performance of Our QR Routine against the R <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">in-built qr() function</a></center></p>
+ <p><center>Performance of our QR Routine against the R <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">in-built qr() function</a></center></p>
 
 <p>The figure above shows a significant speedup achieved with respect to the in-built R function by using our library.</p>
 
