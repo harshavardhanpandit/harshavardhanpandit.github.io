@@ -187,6 +187,18 @@ and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
     
 <center><img class="resize" src="images/LU.png" alt="Mapping for LU factorization" align="middle"></center> 
  <p><center>LU - Matrix update at i<sup>th</sup> iteration</center></p>
+ 
+ <p>The figure above shows the part of the matrix that is updated at the i<sup>th</sup> iteration. To begin with,
+ the most simple approach was implemented wherein each element of this sub-matrix is assigned a thread and a kernel
+ with required number of blocks and threads per block is launched. To experiment with different memory access patterns,
+ two other mappings were tried out. First, the sub-matrix is divided into blocks as before, but within the block
+ only one thread per row of the block is launched (instead of one thread per element). Second, the same thing is
+ done with columns - one thread per column of the block is launched. These two approaches characterize different 
+ memory access patterns but both have one common advantage - enabling use of shared memory. In the figure above, the 
+ row and the column shaded grey is shared by all the elements in the sub-matrix to perform their update.
+ Hence, in a per-row or a per-colum basis, the part of the row and the column shared is first loaded into shared memory
+ which is then used by all the threads within the thread block to perform their update.</p>
+ 
 <h4 style="color:white">
 <a id="QR Factorization3" class="anchor" href="#QR3" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
 
