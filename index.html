@@ -72,7 +72,7 @@
 <p>Welcome to our project page for the Spring 2015 Parallelism Competition! This section provides a brief description of our project goals, deliverables and preliminary results. For a more detailed description, please visit the <a href="#Writeup" style="color:DarkTurquoise">writeup</a> section.</p>
 
 <h2 style="color:white">
-<a id="Summary" class="anchor" href="#Summary1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+<a id="SummaryComp" class="anchor" href="#SummaryComp" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
 <p>  We have developed a library of GPU-accelerated optimized matrix factorization routines in CUDA. The routines
     currently implemented are:
     <ul>
@@ -82,7 +82,27 @@
     </ul>
     We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use 
     the routines in this library in <a href="http://www.r-project.org/" style="color:DarkTurquoise">R</a>.</p>
-    
+
+<h2 style="color:white">
+<a id="ResultsComp" class="anchor" href="#ResultsComp" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h2>
+
+<p>At the competition, we would be showing a comparison of our library routines to the state-of-the-art libraries such as <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS</a>, <a href="http://www.culatools.com/" style="color:DarkTurquoise">CULA</a>. Some preliminary results are shown below. Owing to better algorithms and their efficient implementation, we are able to beat the reference libraries by a huge margin, especially for higher matrix sizes. </p>
+
+<p>The following graph shows a comparison between our LU implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
+
+<center><img class="resize" src="images/LU_results.png" alt="LU results graph" align="middle"></center> 
+ <p><center>Performance of Our LU Routine</center></p>
+
+ <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. </p>
+
+<center><img class="resize" src="images/QR_results1.png" alt="QR results Tesla graph" align="middle"></center> 
+ <p><center>Performance of Our QR Routine on <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a></center></p>
+
+  <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
+
+<center><img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="middle"></center> 
+ <p><center>Performance of our QR Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
+
 <br><br>
 
 <h1 style="color:Aqua">
