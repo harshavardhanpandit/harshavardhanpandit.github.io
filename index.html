@@ -71,7 +71,7 @@
     <ul>
     <li><a href="#LU Factorization1" style="color:DarkTurquoise">LU Factorization</a> <i><b> ( A = LU )</i></b></li> 
     <li><a href="#QR Factorization1" style="color:DarkTurquoise">QR Factorization</a> <i><b> ( A = QR )</i></b></li> 
-    <li><a href="#Cholesky Factorization1" style="color:DarkTurquoise">Cholesky Factorization</a> <i><b> ( A = LL' )</i></b></li> 
+    <li><a href="#Cholesky Factorization1" style="color:DarkTurquoise">Cholesky Factorization</a> <i><b> ( A = LL<sup>T</sup> )</i></b></li> 
     </ul>
     We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use 
     the routines in this library in <a href="http://www.r-project.org/" style="color:DarkTurquoise">R</a>.</p>
@@ -128,6 +128,11 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>mxm</sup></b>
 
 <h4 style="color:white">
 <a id="Cholesky Factorization2" class="anchor" href="#Chol2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
+
+<p>  A symmetric (A = A<sup>T</sup>) and positive definite matrix (x<sup>T</sup>Ax > 0 for all x &isin; &real; 
+<sup>m</sup>, x &ne; 0) <i><b>A &isin; &real;<sup><i><b>nxn</b></i></sup></b></i> is factorized into a product of
+a lower triangular matrix <i><b>L &isin; &real;<sup>nxn</sup></b></i> and its transpose such that
+<i><b>A = LL<sup>T</sup></i></b> </p>
 
 <h2 style="color:white">
 <a id="Approach" class="anchor" href="#Approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach</h2>
