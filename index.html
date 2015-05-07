@@ -100,7 +100,7 @@ respectively such that <i><b>A = LU</i></b> </p>
 <p> A sequential "right-looking" algorithm loops over columns and updates columns to its right based on
     the current column [2]. The following pseudo-code describes the algorithm: </p>
     
- <code>
+ <code><pre>
  <font color="black">
     for i=1 to N  /*loop over columns*/
       for j= i+1 to N
@@ -110,7 +110,7 @@ respectively such that <i><b>A = LU</i></b> </p>
         end
       end
     end  
-  </font>
+  </font></pre>
  </code>  
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
