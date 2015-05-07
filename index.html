@@ -261,7 +261,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 <p>One of the "nice to haves" of our project was designing a R interface for our library in order to enable the calling of our optimized routines from within R. For this purpose, a R wrapper was written around the CUDA QR routine and a test was created to compare the performance of the in-built qr() function in R and the optimized QR routine from "CUDA Factor" library. These tests were carried out on the  <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines, which have R installed on them. </p>
 
 <center><img class="resize" src="images/R_vs_Ours.png" alt="R interface graph" align="middle"></center> 
- <p><center>Performance of Our QR Routine against in-built R <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">qr()</a></center></p>
+ <p><center>Performance of Our QR Routine against the in-built R <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/qr.html" style="color:DarkTurquoise">qr()</a> function</center></p>
 
 <p>The figure above shows a significant speedup achieved with respect to the in-built R function by using our library.</p>
 
