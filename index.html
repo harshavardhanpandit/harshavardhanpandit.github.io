@@ -93,7 +93,7 @@
 <center><img class="resize" src="images/LU_results.png" alt="LU results graph" align="middle"></center> 
  <p><center>Performance of Our LU Routine</center></p>
 
- <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. </p>
+ <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. The <a href="http://docs.nvidia.com/cuda/cublas/#cublas-lt-t-gt-geqrfbatched" style="color:DarkTurquoise">cuBLAS QR routine</a> is intended to be used for performing QR factorization on many small matrices in parallel, we have however focused on computing the factorization for one huge matrix as fast as possible. Such an use case is important </p>
 
 <center><img class="resize" src="images/QR_results1.png" alt="QR results Tesla graph" align="middle"></center> 
  <p><center>Performance of Our QR Routine on <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a></center></p>
