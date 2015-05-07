@@ -92,7 +92,7 @@ to use, but are understandably very slow especially on large matrices. The aim o
 library wherein 3 factorizations - LU, QR and Cholesky - would be implemented in CUDA and an interface to these
 functions would be provided in R. Algorithms written in R which use these factorizations can benefit hugely in
 terms of speedup from using this library. GPU-accelerated routines for these factorizations exist in libraries 
-such as cuBLAS, CULA [1] etc. which serve as reference implementations for our library.</p>
+such as <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS</a>, <a href="http://www.culatools.com/" style="color:DarkTurquoise">CULA</a> [1] etc. which serve as reference implementations for our library.</p>
 
 <h4 style="color:white">
 <a id="LU Factorization2" class="anchor" href="#LU2" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
@@ -212,8 +212,9 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 <p>On profiling the code function-by-function, we found that the matrix-matrix multiplications - the backbone of the QR factorization routine - were the bottleneck restrciting performance. Our matrix multiply kernel thus far was a naive one wherein each output element was calculated by a thread loooping through the rows and columns of the input matrices. We then shifted our focus on improving our matrix multiply kernel.</p>
 
 <center><img class="resize" src="images/matmult.png" alt="Matrix multiplication" align="middle"></center> 
- <p><center>Optimized matrix multiplication<sup>th</sup> iteration</center></p>
+ <p><center>Optimized matrix multiplication</center></p>
 
+<p></p>
 
 <h4 style="color:white">
 <a id="Cholesky Factorization3" class="anchor" href="#Chol3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
