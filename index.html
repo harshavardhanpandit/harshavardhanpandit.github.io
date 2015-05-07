@@ -98,7 +98,7 @@ such as <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" st
 <a id="LU Factorization2" class="anchor" href="#LU2" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
 
 <p>  A non-singular matrix <i><b>A &isin; &real;<sup><i><b>n x n</b></i></sup></b></i> is factorized into a product of
-lower and upper triangular matrices <i><b>L &isin; &real;<sup>n x n</sup></b></i> and <i><b>U &isin; &real;<sup>nxn</sup></b></i>
+lower and upper triangular matrices <i><b>L &isin; &real;<sup>n x n</sup></b></i> and <i><b>U &isin; &real;<sup>n x n</sup></b></i>
 respectively such that <i><b>A = LU</i></b> </p>
 
 <p> A sequential "right-looking" algorithm loops over columns and updates columns to its right based on
@@ -126,9 +126,9 @@ rows and columns of a matrix hints that there is data locality to be exploited i
 <h4 style="color:white">
 <a id="QR Factorization2" class="anchor" href="#QR2" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
 
-<p>  A rectangular matrix <i><b>A &isin; &real;<sup><i><b>mxn</b></i></sup></b></i> is factorized into a product of
-orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>mxm</sup></b></i> and <i><b>R &isin; &real;
-<sup>mxn</sup></b></i> respectively such that <i><b>A = QR</i></b> </p>
+<p>  A rectangular matrix <i><b>A &isin; &real;<sup><i><b>m x n</b></i></sup></b></i> is factorized into a product of
+orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></b></i> and <i><b>R &isin; &real;
+<sup>m x n</sup></b></i> respectively such that <i><b>A = QR</i></b> </p>
 
 <p>One of the ways of computing the QR Factorization involves a method of applying orthogonal transformations
   known as "Householder reflections" [3]. Without delving  into the details of the algorithm, the 
@@ -167,8 +167,8 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>mxm</sup></b>
 <a id="Cholesky Factorization2" class="anchor" href="#Chol2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
 
 <p>  A symmetric (<b><i>A = A<sup>T</sup></i></b>) and positive definite (<i><b>x<sup>T</sup>Ax > 0</b></i> for all
-<i><b>x &isin; &real; <sup>n</sup>, x &ne; 0 </b></i>) matrix <i><b>A &isin; &real;<sup><i><b>nxn</b></i></sup>
-</b></i> is factorized into a product of a lower triangular matrix <i><b>L &isin; &real;<sup>nxn</sup></b></i> 
+<i><b>x &isin; &real; <sup>n</sup>, x &ne; 0 </b></i>) matrix <i><b>A &isin; &real;<sup><i><b>n x n</b></i></sup>
+</b></i> is factorized into a product of a lower triangular matrix <i><b>L &isin; &real;<sup>n x n</sup></b></i> 
 and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 
 <h2 style="color:white">
