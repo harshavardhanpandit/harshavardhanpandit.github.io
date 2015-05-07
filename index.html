@@ -97,7 +97,24 @@ such as cuBLAS, CULA [1] etc. which serve as reference implementations for our l
 lower and upper triangular matrices <i><b>L &isin; &real;<sup>nxn</sup></b></i> and <i><b>U &isin; &real;<sup>nxn</sup></b></i>
 respectively such that <i><b>A = LU</i></b> </p>
 
+<p> A sequential "right-looking" algorithm loops over columns and updates columns to its right based on
+    the current column [2]. The following pseudo-code describes the algorithm: </p>
+    
+ <code>
+ <pre> <font color="black">
+    for i=1 to N  /*loop over columns*/
+      for j= i+1 to N
+        A(j,i) = A(j,i)/A(i,i)  /*update L*/
+        for k=i+1 to N  
+          A(j,k) = A(j,k) - A(i,k)*A(j,i)  /*update U*/
+        end
+      end
+    end  
+  </font> </pre>  
+ </code>  
 
+The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
+columns to the right depend on the columns to the left. 
 
 <h4 style="color:white">
 <a id="QR Factorization2" class="anchor" href="#QR2" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
