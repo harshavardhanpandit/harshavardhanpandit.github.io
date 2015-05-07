@@ -236,6 +236,10 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 <h4 style="color:white">
 <a id="QR Factorization1" class="anchor" href="#QR1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
 
+<p>The performance of our QR routine was evaluated by measuring the wall-clock time of this code and comparing it to that of the reference library. Since the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS library</a> is in-built within newer versions of CUDA (6.0 onwards), it was the first choice of a reference implementation. </p>
+
+<p>The following graph shows a comparison between our implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. </p>
+
 <center><img class="resize" src="images/QR_results1.png" alt="QR results graph" align="middle"></center> 
  <p><center>Performance of Our QR Routine</center></p>
 
