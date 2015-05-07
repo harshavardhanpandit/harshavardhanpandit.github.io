@@ -115,7 +115,7 @@ respectively such that <i><b>A = LU</i></b> </p>
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
 columns to the right depend on the columns to the left. Updating <i><b>U</i></b> is the most computation intensive
-part of this algorithm and hence all efforts are focused to extracting parallelism in this update. Operating over
+part of this algorithm and hence all efforts are focused on extracting parallelism in this update. Operating over
 rows and columns of a matrix hints that there is data locality to be exploited in these memory accesses. 
 <br><br>
 
@@ -126,11 +126,35 @@ rows and columns of a matrix hints that there is data locality to be exploited i
 orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>mxm</sup></b></i> and <i><b>R &isin; &real;
 <sup>mxn</sup></b></i> respectively such that <i><b>A = QR</i></b> </p>
 
+<p>One of the ways of computing the QR Factorization involves a method of applying orthogonal transformations
+  known as "Householder reflections" [3]. Without delving too much into the details of the algorithm, the 
+  following pseudo-code attempts at describing the various major parts in the algorithm and their characteristics</p>
+
+<code><pre>
+ <font color="black">
+    for each block  /*loop over columns*/
+      for j = 1 to blocksize
+        // Find Householder vector
+        // Update A
+      end
+      
+      // Initialize helper matrices Y & W
+      
+      for j = 2 to blocksize
+        // Update Y
+        // Update W
+      end
+      
+      // Update A  
+    end  
+  </font></pre>
+ </code>
+ 
 <h4 style="color:white">
 <a id="Cholesky Factorization2" class="anchor" href="#Chol2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
 
 <p>  A symmetric (<b><i>A = A<sup>T</sup></i></b>) and positive definite (<i><b>x<sup>T</sup>Ax > 0</b></i> for all
-<i><b>x &isin; &real; <sup>m</sup>, x &ne; 0 </b></i>) matrix <i><b>A &isin; &real;<sup><i><b>nxn</b></i></sup>
+<i><b>x &isin; &real; <sup>n</sup>, x &ne; 0 </b></i>) matrix <i><b>A &isin; &real;<sup><i><b>nxn</b></i></sup>
 </b></i> is factorized into a product of a lower triangular matrix <i><b>L &isin; &real;<sup>nxn</sup></b></i> 
 and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 
