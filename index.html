@@ -211,6 +211,8 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 
 <p>On profiling the code function-by-function, we found that the matrix-matrix multiplications - the backbone of the QR factorization routine - were the bottleneck restrciting performance. Our matrix multiply kernel thus far was a naive one wherein each output element was calculated by a thread loooping through the rows and columns of the input matrices. We then shifted our focus on improving our matrix multiply kernel.</p>
 
+<center><img class="resize" src="images/matmult.png" alt="Matrix multiplication" align="middle"></center> 
+ <p><center>Optimized matrix multiplication<sup>th</sup> iteration</center></p>
 
 
 <h4 style="color:white">
