@@ -209,7 +209,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 
 <p>Another possible cause of the inefficiency could have been the dynamic allocation of the arrays within the loops. This overhead of allocating and freeing memory every iteration due to variable sizes could have been affecting performance was our intuition. One way to circumvent this was by taking a usual memory space v/s time trade-off. We cut down on the time spent in allocating/de-allocating memory every iteration by allocating the maximum amount of memory our code would need before the first iteration itself. The indexing within all the kernels in the loop need to be modified accordingly. This approach too did not yield desirable results and had the added drawback that due to excessive memory allocations, this implementation would break at higher matrix sizes since the device ran out of memory.</p>
 
-<p>On profiling the code function-by-function, we found that the matrix-matrix multiplications - the backbone of the QR factorization routine - were the bottleneck restricting performance. Our matrix multiply kernel thus far was a naive one wherein each output element was calculated by a thread loooping through the rows and columns of the input matrices. We then shifted our focus on improving our matrix multiply kernel.</p>
+<p>On profiling the code function-by-function, we found that the matrix-matrix multiplications - the backbone of the QR factorization routine - were the bottleneck restricting performance. Our matrix multiply kernel thus far was a naive one wherein each output element was calculated by a thread looping through the rows and columns of the input matrices. We then shifted our focus on improving our matrix multiply kernel.</p>
 
 <center><img class="resize" src="images/matmult.png" alt="Matrix multiplication" align="middle"></center> 
  <p><center>Optimized matrix multiplication</center></p>
@@ -224,6 +224,10 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 
 <h4 style="color:white">
 <a id="LU Factorization1" class="anchor" href="#LU1" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
+
+<p>The performance of our LU routine was evaluated by measuring the wall-clock time of this code and comparing it to that of the reference library. Since the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS library</a> is in-built within newer versions of CUDA (6.0 onwards), it was the first choice of a reference implementation. </p>
+
+<p>The following graph shows a comparison between our implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
 
 <h4 style="color:white">
 <a id="QR Factorization1" class="anchor" href="#QR1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
@@ -262,7 +266,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
     
 
 <p> We faced some problems initially implementing the blocked version in CUDA, mainly related to array indexing 
-    and memory acceses.  We also set up benchmarks to compare our routines to. The in-built
+    and memory accesses.  We also set up benchmarks to compare our routines to. The in-built
     CUBLAS (CUDA Basic Linear Algebra Subroutines) library is used as a reference. However, the shared memory version
     of LU factorization still has some bugs and fails for higher block sizes, an issue which we are still working on.
     For this reason, timing the LU routine was deferred. </p>
@@ -298,7 +302,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
     algorithm slightly so that the memory allocations are optimal. Another major one would be to use optimized 
     matrix multiply routine instead of the naive one which we have currently written.</p>
     
-<p> Finally, we believe that we would be able to produce a library with atleast 3 fast and efficient matrix 
+<p> Finally, we believe that we would be able to produce a library with at least 3 fast and efficient matrix 
     routines - LU factorization, Matrix Multiply and QR factorization. If all goes as planned, we think that the
     other "nice to have" - Cholesky decomposition - is also within reach for us, before the deadline. For the
     Parallelism Competition, we will display a comparison of our implementation with respect to the CUBLAS library
