@@ -78,7 +78,15 @@
 <h2 style="color:white">
 <a id="Background" class="anchor" href="#Background1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h2>
 
-<p> The</p>
+<p> Matrix factorizations/decompositions are computationally intensive linear algebra operations that are commonly
+used in problems like matrix inversion, solving linear systems etc. These factorizations therefore find application
+in numerous fields - any place where you would solve a system of linear equations! 
+Domain-specific languages such as R and MATLAB have in-built functions for many matrix decompositions which are easy
+to use, but are understandably very slow especially on large matrices. The aim of this project is to design a
+library wherein 3 factorizations - LU, QR and Cholesky - would be implemented in CUDA and an interface to these
+functions would be provided in R. Algorithms written in R which use these factorizations can benefit hugely in
+terms of speedup from using this library. GPU-accelerated routines for these factorizations exist in libraries 
+such as cuBLAS, CULA [1] etc. which serve as reference implementations for our library.</p>
 
 <h2 style="color:white">
 <a id="Approach" class="anchor" href="#Approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach</h2>
@@ -102,6 +110,7 @@
 <a id="References" class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
 
  <ol type="1">
+   <li>GPU-accelerated libraries,  <a href="https://developer.nvidia.com/gpu-accelerated-libraries" style="color:DarkTurquoise">https://developer.nvidia.com/gpu-accelerated-libraries</a></li>
   <li> Bandara, H. M. D. M., and D. N. Ranasinghe. "Effective GPU Strategies for LU Decomposition". Technical report, University of Colombo, Colombo, Sri Lanka, 2010.</li>
   <li>Kerr, Andrew, Dan Campbell, and Mark Richards. "QR decomposition on GPUs." Proceedings of 2nd Workshop on General Purpose Processing on Graphics Processing Units. ACM, 2009.</li>
 </ol>
