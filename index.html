@@ -173,8 +173,9 @@ and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 <h4 style="color:white">
 <a id="LU Factorization3" class="anchor" href="#LU3" aria-hidden="true"><span class="octicon octicon-link"></span></a>LU Factorization</h4>
 
-<p> We implemented a parallel version of the LU factorization algorithm on the GTX 670 GPU in the GHC machines.
-    The sequential algorithm was slightly modified to enable better mapping to a GPU - this was done by separating
+<p> We implemented a parallel version of the LU factorization algorithm on the <a 
+    href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 
+    GPU</a> in the GHC machines. The sequential algorithm was slightly modified to enable better mapping to a GPU - this was done by separating
     the loops which involve updating the L and the U parts of the matrix. </p>
     
     
