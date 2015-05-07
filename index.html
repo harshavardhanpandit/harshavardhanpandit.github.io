@@ -101,7 +101,7 @@ respectively such that <i><b>A = LU</i></b> </p>
     the current column [2]. The following pseudo-code describes the algorithm: </p>
     
  <code>
- <pre> <font color="black">
+ <font color="black">
     for i=1 to N  /*loop over columns*/
       for j= i+1 to N
         A(j,i) = A(j,i)/A(i,i)  /*update L*/
@@ -110,17 +110,18 @@ respectively such that <i><b>A = LU</i></b> </p>
         end
       end
     end  
-  </font> </pre>  
+  </font>
  </code>  
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
 columns to the right depend on the columns to the left. Updating <i><b>U</i></b> is the most computation intensive
 part of this algorithm and hence all efforts are focused to extracting parallelism in this update. Operating over
 rows and columns of a matrix hints that there is data locality to be exploited in these memory accesses. 
-
+<br>
 
 <h4 style="color:white">
 <a id="QR Factorization2" class="anchor" href="#QR2" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
+
 
 <h4 style="color:white">
 <a id="Cholesky Factorization2" class="anchor" href="#Chol2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
