@@ -155,7 +155,7 @@ respectively such that <i><b>A = LU</i></b> </p>
     end  
   </font></pre>
  </code>  
- <p><center>LU factorization - Pseudo code</center></p>
+ <center>LU factorization - Pseudo code</center>
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
 columns to the right depend on the columns to the left. Updating <i><b>U</i></b> is the most computation intensive
@@ -194,7 +194,7 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></
     end  
   </font></pre>
  </code>
- <p><center>QR factorization - Pseudo code</center></p>
+ <center>QR factorization - Pseudo code</center>
  
  <p>Within the scope of this project, the only important things to know about the above pseudo-code are - one,
   finding the householder vector involves <b>calculating norms</b> of vectors and two, the update A, Y & W parts
@@ -231,7 +231,7 @@ columns to the right depend on the columns to the left. </p>
     end  
   </font></pre>
  </code> 
-<p><center>Cholesky factorization - Pseudo code</center></p>
+<center>Cholesky factorization - Pseudo code [4]</center>
 
 <p>Updating the sub-matrix is the most computation intensive part of this algorithm and hence all efforts are focused on extracting parallelism in this update. Operating over rows and columns of a matrix hints that there is data locality to be exploited in these memory accesses.</p>
 
@@ -339,6 +339,7 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
   <li>Kerr, Andrew, Dan Campbell, and Mark Richards. <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.514.7063&rep=rep1&type=pdf"
   style="color:DarkTurquoise">"QR decomposition on GPUs."</a> 
   Proceedings of 2nd Workshop on General Purpose Processing on Graphics Processing Units. ACM, 2009.</li>
+  <li><a href="https://courses.engr.illinois.edu/cs554/fa2013/notes/07_cholesky.pdf" style="color:DarkTurquoise">Parallel Numerical Algorithms</a>, Prof. Michael T. Health, University of Illinois-Urbana Champaign </li>
 </ol>
 
 <h2 style="color:white">
