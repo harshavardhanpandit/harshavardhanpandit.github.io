@@ -282,8 +282,23 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster as well as on 
 <h4 style="color:white">
 <a id="Cholesky Factorization3" class="anchor" href="#Chol3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
 
-<p> We implemented a parallel version of the LU factorization algorithm on the <a href="http://www.nvidia.com/object/tesla-servers.html" 
+<p> We implemented a parallel version of the Cholesky factorization algorithm on the <a href="http://www.nvidia.com/object/tesla-servers.html" 
 style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster. To begin with, the sequential algorithm was implemented using the pseudo-code in [4].
+
+<p>This application was one of the times where modifying the initial sequential algorithm proved to be highly useful. The initial sequential Cholesky factorization algorithm we were looking at involved updating only one column at a time, contrary to the pseudo code in the previous section. This however involved scans over the rows of the input array at each iteration. This dependency limited the amount of parallelism that we could easily extract from the code. Hence, we decided to go in a different direction and hence chose the algorithm described in the pseudo-code which makes the problem similar to the LU factorization in nature. </p>
+
+<center><img class="resize" src="images/Chol.png" alt="Mapping for Cholesky factorization" align="middle"></center> 
+ <p><center>Cholesky - Matrix update at k<sup>th</sup> iteration</center></p>
+
+<p>The figure above shows the part of the matrix that is updated at the k<sup>th</sup> iteration. To begin with,
+ the most simple approach was implemented wherein each element of this sub-matrix is assigned a thread and a kernel
+ with required number of blocks and threads per block is launched. To experiment with different memory access patterns,
+ two other mappings were tried out. First, the sub-matrix is divided into blocks as before, but within the block
+ only one thread per row of the block is launched (instead of one thread per element). Second, the same thing is
+ done with columns - one thread per column of the block is launched. These two approaches characterize different 
+ memory access patterns but both have one common advantage - enabling use of shared memory. In the figure above, the column shaded gray is shared by all the elements in the sub-matrix to perform their update.
+ Hence, in a per-row or a per-column method, the part of the column shared is first loaded into shared memory
+ which is then used by all the threads within the thread block to perform their update.</p>
 
 <h2 style="color:white">
 <a id="Results" class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h2>
