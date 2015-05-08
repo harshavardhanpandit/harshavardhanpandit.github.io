@@ -155,7 +155,7 @@ respectively such that <i><b>A = LU</i></b> </p>
     end  
   </font></pre>
  </code>  
- <center>LU factorization - Pseudo code</center>
+ <!-- <center>LU factorization - Pseudo code</center> -->
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
 columns to the right depend on the columns to the left. Updating <i><b>U</i></b> is the most computation intensive
@@ -194,7 +194,7 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></
     end  
   </font></pre>
  </code>
- <center>QR factorization - Pseudo code</center>
+ <!--  <center>QR factorization - Pseudo code</center> -->
  
  <p>Within the scope of this project, the only important things to know about the above pseudo-code are - one,
   finding the householder vector involves <b>calculating norms</b> of vectors and two, the update A, Y & W parts
@@ -212,8 +212,7 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></
 </b></i> is factorized into a product of a lower triangular matrix <i><b>L &isin; &real;<sup>n x n</sup></b></i> 
 and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 
-<p>Similar to the LU factorization algorithm, the sequential algorithm of the Cholesky factorization has a dependency flow from left to right. In other words, the matrix 
-columns to the right depend on the columns to the left. </p>
+<p>Similar to the LU factorization algorithm, the sequential algorithm of the Cholesky factorization [4] has a dependency flow from left to right. In other words, the matrix columns to the right depend on the columns to the left. </p>
 
  <code><pre>
  <font color="black">
@@ -231,7 +230,7 @@ columns to the right depend on the columns to the left. </p>
     end  
   </font></pre>
  </code> 
-<center>Cholesky factorization - Pseudo code [4]</center>
+<!--  <center>Cholesky factorization - Pseudo code [4]</center> -->
 
 <p>Updating the sub-matrix is the most computation intensive part of this algorithm and hence all efforts are focused on extracting parallelism in this update. Operating over rows and columns of a matrix hints that there is data locality to be exploited in these memory accesses.</p>
 
