@@ -210,6 +210,26 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></
 </b></i> is factorized into a product of a lower triangular matrix <i><b>L &isin; &real;<sup>n x n</sup></b></i> 
 and its transpose such that <i><b>A = LL<sup>T</sup></i></b> </p>
 
+<p>Similar to the LU factorization algorithm, the sequential algorithm of the Cholesky factorization has a dependency flow from left to right. In other words, the matrix 
+columns to the right depend on the columns to the left. </p>
+
+ <code><pre>
+ <font color="black">
+    for k=1 to N  /*loop over columns*/
+      A(k,k) = &radic;A(k,k)
+      for i = k+1 to N
+        A(i,k) = A(i,k)/A(k,k)  /*update current column*/
+      end
+
+      for j=k+1 to N  
+        for i=j to N 
+          A(i,j) = A(i,j) - A(i,k)*A(j,k)  /*update sub-matrix*/
+        end
+      end
+    end  
+  </font></pre>
+ </code> 
+
 <h2 style="color:white">
 <a id="Approach" class="anchor" href="#Approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach</h2>
 
