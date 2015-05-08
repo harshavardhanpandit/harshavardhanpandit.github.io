@@ -96,12 +96,11 @@
 
  <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. The <a href="http://docs.nvidia.com/cuda/cublas/#cublas-lt-t-gt-geqrfbatched" style="color:DarkTurquoise">cuBLAS QR routine</a> is intended to be used for performing QR factorization on many small matrices in parallel, we have however focused on computing the factorization for one huge matrix as fast as possible. Such an use case is important as well, for instance, during PCA (Principal Component Analysis) calculations in Machine Learning algorithms.</p>
 
-<left><img class="resize" src="images/QR_results1.png" alt="QR results Tesla graph" align="middle"></left> 
+<p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
+
+<img class="resize" src="images/QR_results1.png" alt="QR results Tesla graph" align="left"> <img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="right">
  <p><left>Performance of Our QR Routine on <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a></left></p>
 
-  <p>The following graph shows a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. </p>
-
-<center><img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="middle"></center> 
  <p><center>Performance of our QR Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
 
 <p>The following graph shows a comparison between our implementation and the <a href="http://www.culatools.com/" style="color:DarkTurquoise">CULA reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a>. </p>
