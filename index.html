@@ -81,7 +81,7 @@
     <li><a href="#QR Factorization1" style="color:DarkTurquoise">QR Factorization</a> <i><b> ( A = QR )</i></b></li> 
     <li><a href="#Cholesky Factorization1" style="color:DarkTurquoise">Cholesky Factorization</a> <i><b> ( A = LL<sup>T</sup> )</i></b></li> 
     </ul>
-    We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use 
+    We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use some of 
     the routines in this library in <a href="http://www.r-project.org/" style="color:DarkTurquoise">R</a>.</p>
 
 <h2 style="color:white">
@@ -120,7 +120,7 @@
     <li><a href="#QR Factorization1" style="color:DarkTurquoise">QR Factorization</a> <i><b> ( A = QR )</i></b></li> 
     <li><a href="#Cholesky Factorization1" style="color:DarkTurquoise">Cholesky Factorization</a> <i><b> ( A = LL<sup>T</sup> )</i></b></li> 
     </ul>
-    We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use 
+    We have also designed an <a href="#R interface" style="color:DarkTurquoise">R interface</a> to use some of 
     the routines in this library in <a href="http://www.r-project.org/" style="color:DarkTurquoise">R</a>.</p>
     
 <h2 style="color:white">
@@ -350,12 +350,12 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster. To begin with
 <a id="R interface" class="anchor" href="#R interface" aria-hidden="true"><span class="octicon octicon-link"></span></a>R Interface</h4>
 
 <!-- -->
-<p>One of the "nice to haves" of our project was designing a R interface for our library in order to enable the calling of our optimized routines from within R. For this purpose, a R wrapper was written around the CUDA helper Matrix Multiply routine and a test was created to compare the performance of the <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/matmult.html" style="color:DarkTurquoise">in-built matmult() function</a> in R and the shared memory matrix multiply routine from our "CUDA Factor" library. These tests were carried out on the  <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines, which have R installed on them. </p> 
+<p>One of the "nice to haves" of our project was designing a R interface for our library in order to enable the calling of some of our optimized routines from within R. Towards this end, a R wrapper was written around the CUDA helper Matrix Multiply routine and a test was created to compare the performance of the <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/matmult.html" style="color:DarkTurquoise">in-built matmult() function</a> in R and the shared memory matrix multiply routine from our "CUDA Factor" library. These tests were carried out on the  <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a> in the GHC machines, which have R installed on them. </p> 
 
 <center><img class="resize" src="images/R_vs_Ours.png" alt="R interface graph" align="middle"></center> 
  <p><center>Performance of our Matrix Multiply Routine against the R <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/matmult.html" style="color:DarkTurquoise">in-built matmult() function</a></center></p>
 
-<p>The figure above shows a significant speedup achieved especially for larger matrix sizes with respect to the in-built R function by using our library.</p>
+<p>The figure above shows a significant speedup achieved especially for larger matrix sizes with respect to the in-built R function by using our library. Future work will involve writing and testing similar interfaces for other routines as well.</p>
 
 <h2>
 <a id="References" class="anchor" href="#References" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h2>
