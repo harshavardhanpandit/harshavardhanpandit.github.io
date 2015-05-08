@@ -155,6 +155,7 @@ respectively such that <i><b>A = LU</i></b> </p>
     end  
   </font></pre>
  </code>  
+ <p><center>LU factorization - Pseudo code</center></p>
 
 The algorithm therefore prescribes that the data dependency flows from left to right - in other words, the matrix 
 columns to the right depend on the columns to the left. Updating <i><b>U</i></b> is the most computation intensive
@@ -193,6 +194,7 @@ orthogonal and upper triangular matrices <i><b>Q &isin; &real;<sup>m x m</sup></
     end  
   </font></pre>
  </code>
+ <p><center>QR factorization - Pseudo code</center></p>
  
  <p>Within the scope of this project, the only important things to know about the above pseudo-code are - one,
   finding the householder vector involves <b>calculating norms</b> of vectors and two, the update A, Y & W parts
@@ -229,6 +231,9 @@ columns to the right depend on the columns to the left. </p>
     end  
   </font></pre>
  </code> 
+<p><center>Cholesky factorization - Pseudo code</center></p>
+
+<p>Updating the sub-matrix is the most computation intensive part of this algorithm and hence all efforts are focused on extracting parallelism in this update. Operating over rows and columns of a matrix hints that there is data locality to be exploited in these memory accesses.</p>
 
 <h2 style="color:white">
 <a id="Approach" class="anchor" href="#Approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach</h2>
