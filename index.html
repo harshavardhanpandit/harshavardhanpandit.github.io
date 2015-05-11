@@ -94,7 +94,7 @@
 <center><img class="resize" src="images/LU_results.png" alt="LU results graph" align="middle"></center> 
  <p><center>Performance of Our LU Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
 
- <p>The following graphs show a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a> as well as a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. The <a href="http://docs.nvidia.com/cuda/cublas/#cublas-lt-t-gt-geqrfbatched" style="color:DarkTurquoise">cuBLAS QR routine</a> is intended to be used for performing QR factorization on many small matrices in parallel, we have however focused on computing the factorization for one huge matrix as fast as possible. Such an use case is important as well, for instance, during PCA (Principal Component Analysis) calculations in Machine Learning algorithms. Our performance is comparable to <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS</a> for smaller sizes and also scales better than the reference to higher matrix dimensions. </p>
+ <p>The following graphs show a comparison between our QR implementation and the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS reference</a> when run on a <a href="http://www.nvidia.com/object/tesla-servers.html" style="color:DarkTurquoise">Tesla K40</a> as well as a <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670 GPU</a>. The <a href="http://docs.nvidia.com/cuda/cublas/#cublas-lt-t-gt-geqrfbatched" style="color:DarkTurquoise">cuBLAS QR routine</a> is intended to be used for performing QR factorization on many small matrices in parallel, we have however focused on computing the factorization for one huge matrix as fast as possible. Such an use case is important as well, for instance, during <a href="http://en.wikipedia.org/wiki/Principal_component_analysis" style="color:DarkTurquoise">PCA (Principal Component Analysis)</a> calculations in Machine Learning/Pattern Recognition algorithms. Our performance is comparable to <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS</a> for smaller sizes and also scales better than the reference to higher matrix dimensions. </p>
 
 <img class="resize" src="images/QR_results1.png" alt="QR results Tesla graph" align="left"> <img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="right">
 
@@ -322,6 +322,29 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster. To begin with
 <center><img class="resize" src="images/LU_results.png" alt="LU results graph" align="middle"></center> 
  <p><center>Performance of Our LU Routine</center></p>
 
+<p>These results were obtained using the one thread per column configuration. This version performs better than the other two - one thread per element and one thread per row. To get an insight into why this is, we ran the <a href="http://docs.nvidia.com/cuda/profiler-users-guide/#axzz3ZqH0Bois" style="color:DarkTurquoise">nvprof profiler</a> on the row and the column versions for size of input matrix N=4096. The results of this analysis are shown in the table below. </p>
+
+<center><table align="center" style="width:50%">
+  <tr>
+    <th>Metric</th>
+    <th>One thread per row</th>
+    <th>One thread per column</th>
+  </tr>
+  <tr>
+    <td>gst_requested_throughput</td>
+    <td>8.9614GB/s</td>
+    <td>52.346GB/s</td>    
+  </tr>
+  <tr>
+    <td>gld_requested_throughput</td>
+    <td>8.1816GB/s</td>
+    <td>55.578GB/s</td>    
+  </tr>
+  </table></center>
+  
+  <p><center>Analyzing the LU versions</center></p>
+
+  <p>The above table shows that the average requested throughput for both global loads and stores is much higher for the one thread per column version. We believe that this is due to the cache advantage that this version offers - when one thread starts executing it loads a line into the cache, which automatically loads the data required by other threads in that thread block.</p>
 
 <h4 style="color:white">
 <a id="QR Factorization1" class="anchor" href="#QR1" aria-hidden="true"><span class="octicon octicon-link"></span></a>QR Factorization</h4>
@@ -337,6 +360,8 @@ style="color:DarkTurquoise">Tesla K40</a> in the latedays cluster. To begin with
 
 <center><img class="resize" src="images/QR_results_670.png" alt="QR results 670 graph" align="middle"></center> 
  <p><center>Performance of our QR Routine on <a href="http://www.geforce.com/hardware/desktop-gpus/geforce-gtx-670" style="color:DarkTurquoise">GTX 670</a></center></p>
+
+<p>One of the reasons for such a speedup was that the <a href="http://docs.nvidia.com/cuda/cublas/index.html#axzz3ZR8Xl4Om" style="color:DarkTurquoise">cuBLAS library</a> focuses on performing QR factorizations on many small matrices in parallel, whereas we have focused on computing the QR factorization of a large matrix as fast as we can. We find this to be a more interesting test case since the matrices occurring in <a href="http://en.wikipedia.org/wiki/Principal_component_analysis" style="color:DarkTurquoise">PCA</a> computations generally tend to be higher in size. Another reason for the massive speedup as pointed out by the judges in the Parallelism Competition could be that the reference library uses a column-major order to store the matrices, whereas we have stuck with row-major order. This could also have an effect on the memory access patetrns and caching effects, though we were not able to run tests and collect data to support this hypothesis.</p>
 
 <h4 style="color:white">
 <a id="Cholesky Factorization1" class="anchor" href="#Chol" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cholesky Factorization</h4>
