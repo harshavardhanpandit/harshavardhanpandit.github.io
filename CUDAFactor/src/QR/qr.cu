@@ -129,9 +129,9 @@ void cudaFactorQRRoutine(double *input)
             cudacall(cudaMalloc((void **)&x, sizeof(double) * (M-columnIndex)));
             cudacall(cudaMalloc((void **)&v, sizeof(double) * (M-columnIndex)));
             cudacall(cudaMalloc((void **)&vVprime, sizeof(double) * 
-                                             (M-columnIndex) * (M-columnIndex)));
+                               (M-columnIndex) * (M-columnIndex)));
             cudacall(cudaMalloc((void **)&vprime, sizeof(double) *
-                                                              (M-columnIndex)));
+                               (M-columnIndex)));
 
             #ifdef DEBUG
                 toc = clock();
@@ -198,7 +198,7 @@ void cudaFactorQRRoutine(double *input)
             double *scalarMultipliedInput, *productBetaVVprimeInput; 
             cudacall(cudaMalloc((void **)&scalarMultipliedInput, sizeof(double)*
                                 (M-columnIndex) * (tileStartColumn + 
-                                                   tileSize - columnIndex)));
+                                tileSize - columnIndex)));
             cudacall(cudaMalloc((void **)&productBetaVVprimeInput, 
                                 sizeof(double) * (M-columnIndex) * 
                                 (tileStartColumn+tileSize-columnIndex)));
@@ -206,7 +206,7 @@ void cudaFactorQRRoutine(double *input)
             dim3 blockDim2D(BLOCK_SIZE, BLOCK_SIZE);
             dim3 gridDim2D((M - columnIndex + blockDim2D.x - 1) / blockDim2D.x, 
                            (tileStartColumn+tileSize-columnIndex + 
-                                                  blockDim2D.y)/ blockDim2D.y);
+                            blockDim2D.y)/ blockDim2D.y);
 
             /* Scalar multiplied input */
             kernelScalarMultipliedInput<<<gridDim2D, blockDim2D>>>
@@ -314,9 +314,9 @@ void cudaFactorQRRoutine(double *input)
         #endif
         
         cudacall(cudaMalloc((void **)&vNew, sizeof(double) * 
-                                            (M-tileIndex*tileSize)));
+                            (M-tileIndex*tileSize)));
         cudacall(cudaMalloc((void **)&z, sizeof(double) * 
-                                            (M-tileIndex*tileSize)));
+                            (M-tileIndex*tileSize)));
 
         #ifdef DEBUG
             toc = clock();
@@ -354,15 +354,15 @@ void cudaFactorQRRoutine(double *input)
 
             dim3 blockDim(BLOCK_SIZE, 1);
             dim3 gridDim((M - tileIndex*tileSize + blockDim.x - 1) /
-                                                      blockDim.x, 1);
+                          blockDim.x, 1);
 
             #ifdef DEBUG
                 tic = clock();
             #endif
             
             /* vNew = V(:,columnInTile) */
-            kernelExtractVnew<<<gridDim, blockDim>>>(vNew, V, 
-                                                     columnInTile, tileStartColumn);
+            kernelExtractVnew<<<gridDim, blockDim>>>
+                                (vNew, V, columnInTile, tileStartColumn);
             cudacall(cudaThreadSynchronize());
             cudacall(cudaDeviceSynchronize());
             
@@ -376,7 +376,7 @@ void cudaFactorQRRoutine(double *input)
             cudacall(cudaMalloc((void **)&productWYprime, sizeof(double) *
                                 (M-tileIndex*tileSize) * (M-tileIndex*tileSize)));
             cudacall(cudaMalloc((void **)&productWYprimeVnew, sizeof(double)
-                                                * (M-tileIndex*tileSize) * 1 ));
+                                * (M-tileIndex*tileSize) * 1 ));
 
             #ifdef DEBUG
                 toc = clock();
@@ -403,8 +403,10 @@ void cudaFactorQRRoutine(double *input)
             /* z = -B(columnInTile)vNew - B(columnInTile)*WY'*vNew
                W = [W z]
                Y = [Y vNew] */  
-            kernelComputezWY<<<gridDim, blockDim>>>(z, W, Y, vNew, B, 
-                                productWYprimeVnew, columnInTile, tileStartColumn);
+            kernelComputezWY<<<gridDim, blockDim>>>
+                              (z, W, Y, vNew, B, 
+                               productWYprimeVnew, columnInTile,
+                               tileStartColumn);
             cudacall(cudaThreadSynchronize());
             cudacall(cudaDeviceSynchronize());
             
@@ -440,13 +442,13 @@ void cudaFactorQRRoutine(double *input)
             tic = clock();
         #endif
         cudacall(cudaMalloc((void **)&Wprime, sizeof(double) * 
-                                            (M-tileIndex*tileSize) * tileSize));
+                            (M-tileIndex*tileSize) * tileSize));
         cudacall(cudaMalloc((void **)&productYWprime, sizeof(double) * 
                             (M-tileIndex*tileSize) * (M-tileIndex*tileSize)));
 
         dim3 blockDim2D(BLOCK_SIZE, BLOCK_SIZE);
         dim3 gridDim2D(( (M-tileIndex*tileSize)+ blockDim2D.x - 1) / blockDim2D.x, 
-                                          (tileSize + blockDim2D.y)/ blockDim2D.y);
+                         (tileSize + blockDim2D.y)/ blockDim2D.y);
 
         kernelComputeWprime<<<gridDim2D, blockDim2D>>>(W, Wprime, tileStartColumn);
         cudacall(cudaThreadSynchronize());
@@ -535,7 +537,7 @@ void cudaFactorQRRoutine(double *input)
 
     dim3 blockDimFinal(BLOCK_SIZE, BLOCK_SIZE);
     dim3 gridDimFinal(( M+ blockDimFinal.x - 1) / blockDimFinal.x, 
-                                    (N + blockDimFinal.y)/ blockDimFinal.y);
+                      (N + blockDimFinal.y)/ blockDimFinal.y);
 
     #ifdef DEBUG
         tic = clock();
@@ -646,10 +648,10 @@ void matrixMultiplyDevice(double *a, int rowsA, int colsA, double *b,
     dim3 blockDim(BLOCK_SIZE, BLOCK_SIZE);
     
     dim3 gridDim((colsB + blockDim.x - 1) / blockDim.x, 
-                                        (rowsA + blockDim.y - 1) / blockDim.y);
+                 (rowsA + blockDim.y - 1) / blockDim.y);
 
     kernelSharedMemMatMult<<<gridDim,blockDim>>>(a, rowsA, colsA,
-                                                         b, rowsB, colsB, c);
+                                                 b, rowsB, colsB, c);
     cudacall(cudaThreadSynchronize());
     cudacall(cudaDeviceSynchronize());
 

@@ -84,7 +84,7 @@ __global__ void kernelUpdateInput(double *input, double *productBetaVVprimeInput
     input[(row+columnIndex)*(N) + columnIndex + col] = 
                             input[(row+columnIndex)*(N) + columnIndex + col] - 
                             productBetaVVprimeInput[row *
-                                (tileStartColumn+tileSize-columnIndex) + col];  
+                            (tileStartColumn+tileSize-columnIndex) + col];  
 
 }
 
@@ -126,7 +126,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
       if(m * BLOCK_SIZE + threadIdx.x < colsA && row < rowsA) 
       {
         M_shared[threadIdx.y][threadIdx.x] =  
-                                A[row * colsA + m * BLOCK_SIZE + threadIdx.x];
+        A[row * colsA + m * BLOCK_SIZE + threadIdx.x];
       }
       else 
       {
@@ -136,7 +136,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
       if(m * BLOCK_SIZE + threadIdx.y < rowsB && col < colsB) 
       {
         N_shared[threadIdx.y][threadIdx.x] =  
-                              B[(m * BLOCK_SIZE + threadIdx.y) * colsB + col];
+        B[(m * BLOCK_SIZE + threadIdx.y) * colsB + col];
       } 
       else 
       {
@@ -155,7 +155,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
     if(row < rowsA && col < colsB) 
     {
         C[((blockIdx.y * blockDim.y + threadIdx.y) * colsB) + 
-                                (blockIdx.x * blockDim.x) + threadIdx.x] = tmp;
+           (blockIdx.x * blockDim.x) + threadIdx.x] = tmp;
     }
 
 }
@@ -246,8 +246,7 @@ __global__ void kernelComputezWY(double *z, double *W, double *Y, double *vNew,
     if (row >= M-tileStartColumn)
         return;
 
-    z[row] = -B[columnInTile] * vNew[row] - B[columnInTile] * 
-                                            productWYprimeVnew[row];
+    z[row] = -B[columnInTile] * vNew[row] - B[columnInTile] * productWYprimeVnew[row];
     W[row*tileSize+columnInTile] = z[row];
     Y[row*tileSize+columnInTile] = vNew[row];
 }
@@ -265,7 +264,7 @@ __global__ void kernelComputeWprime(double *W, double *Wprime,
         return;
 
     Wprime[columnInTile*(M-tileStartColumn) + row] = W[row*tileSize + 
-                                                            columnInTile];
+                                                       columnInTile];
 
 }
 
