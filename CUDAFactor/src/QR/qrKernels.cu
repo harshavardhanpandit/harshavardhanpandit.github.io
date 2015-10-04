@@ -22,16 +22,16 @@
 * kernelLowerTriangular : 
 ******************************************************************************/
 __global__ void kernelLowerTriangular(double *U, double *v, double *vprime, 
-									  int columnIndex)
+                                      int columnIndex)
 {
 
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (index >= M-columnIndex)
-		return;
+    if (index >= M-columnIndex)
+        return;
 
-	U[(index+columnIndex)*N + columnIndex] = v[index]/v[0];
-	vprime[index] = v[index];
+    U[(index+columnIndex)*N + columnIndex] = v[index]/v[0];
+    vprime[index] = v[index];
 
 }
 
@@ -41,12 +41,12 @@ __global__ void kernelLowerTriangular(double *U, double *v, double *vprime,
 __global__ void kernelPartialColumn(double *input, double *x, int columnIndex)
 {
 
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (index >= M-columnIndex)
-		return;
+    if (index >= M-columnIndex)
+        return;
 
-	x[index] = input[(columnIndex+index)*N + columnIndex];	
+    x[index] = input[(columnIndex+index)*N + columnIndex];  
 
 }
 
@@ -54,18 +54,18 @@ __global__ void kernelPartialColumn(double *input, double *x, int columnIndex)
 * kernelScalarMultipliedInput : 
 ******************************************************************************/
 __global__ void kernelScalarMultipliedInput(double *scalarMultipliedInput, 
-											double *input, double *B, 
-							 			    int columnInTile, int columnIndex, 
-							 			    int tileStartColumn)
+                                            double *input, double *B, 
+                                            int columnInTile, int columnIndex, 
+                                            int tileStartColumn)
 {
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int col = blockIdx.y * blockDim.y + threadIdx.y;
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
 
-	if (row >= (M-columnIndex) || col >= (tileStartColumn+tileSize-columnIndex))
-		return;
+    if (row >= (M-columnIndex) || col >= (tileStartColumn+tileSize-columnIndex))
+        return;
 
-	scalarMultipliedInput[row*(tileStartColumn+tileSize-columnIndex) + col] = 
-			   B[columnInTile]*input[(row+columnIndex)*(N) + columnIndex + col]; 
+    scalarMultipliedInput[row*(tileStartColumn+tileSize-columnIndex) + col] = 
+               B[columnInTile]*input[(row+columnIndex)*(N) + columnIndex + col]; 
 
 }
 
@@ -73,18 +73,18 @@ __global__ void kernelScalarMultipliedInput(double *scalarMultipliedInput,
 * kernelUpdateInput : 
 ******************************************************************************/
 __global__ void kernelUpdateInput(double *input, double *productBetaVVprimeInput, 
-								 int columnIndex, int tileStartColumn)
+                                 int columnIndex, int tileStartColumn)
 {
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int col = blockIdx.y * blockDim.y + threadIdx.y;
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
 
-	if (row >= (M-columnIndex) || col >= (tileStartColumn+tileSize-columnIndex))
-		return;
+    if (row >= (M-columnIndex) || col >= (tileStartColumn+tileSize-columnIndex))
+        return;
 
-	input[(row+columnIndex)*(N) + columnIndex + col] = 
-							input[(row+columnIndex)*(N) + columnIndex + col] - 
-							productBetaVVprimeInput[row *
-								(tileStartColumn+tileSize-columnIndex) + col]; 	
+    input[(row+columnIndex)*(N) + columnIndex + col] = 
+                            input[(row+columnIndex)*(N) + columnIndex + col] - 
+                            productBetaVVprimeInput[row *
+                                (tileStartColumn+tileSize-columnIndex) + col];  
 
 }
 
@@ -92,18 +92,18 @@ __global__ void kernelUpdateInput(double *input, double *productBetaVVprimeInput
 * kernelConcatHouseholderVectors : Store vector v in tmp variable 
 ******************************************************************************/
 __global__ void kernelConcatHouseholderVectors(double *v, double *V, 
-											   int columnInTile, 
-										   	   int tileStartColumn)
+                                               int columnInTile, 
+                                               int tileStartColumn)
 {
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (index >= M-tileStartColumn)
-		return;
+    if (index >= M-tileStartColumn)
+        return;
 
-	if (index<columnInTile)
-		V[index*tileSize + columnInTile] = 0.0f;
-	else
-		V[index*tileSize + columnInTile] = v[index-columnInTile];
+    if (index<columnInTile)
+        V[index*tileSize + columnInTile] = 0.0f;
+    else
+        V[index*tileSize + columnInTile] = v[index-columnInTile];
 
 }
 
@@ -111,8 +111,8 @@ __global__ void kernelConcatHouseholderVectors(double *v, double *V,
 * kernelSharedMemMatMult : 
 ******************************************************************************/
 __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA, 
-									   double *B, int rowsB,  int colsB, 
-									   double *C)
+                                       double *B, int rowsB,  int colsB, 
+                                       double *C)
 {
     double tmp = 0.0;
     __shared__ double M_shared[BLOCK_SIZE][BLOCK_SIZE] ;
@@ -126,7 +126,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
       if(m * BLOCK_SIZE + threadIdx.x < colsA && row < rowsA) 
       {
         M_shared[threadIdx.y][threadIdx.x] =  
-        						A[row * colsA + m * BLOCK_SIZE + threadIdx.x];
+                                A[row * colsA + m * BLOCK_SIZE + threadIdx.x];
       }
       else 
       {
@@ -136,7 +136,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
       if(m * BLOCK_SIZE + threadIdx.y < rowsB && col < colsB) 
       {
         N_shared[threadIdx.y][threadIdx.x] =  
-    						  B[(m * BLOCK_SIZE + threadIdx.y) * colsB + col];
+                              B[(m * BLOCK_SIZE + threadIdx.y) * colsB + col];
       } 
       else 
       {
@@ -155,7 +155,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
     if(row < rowsA && col < colsB) 
     {
         C[((blockIdx.y * blockDim.y + threadIdx.y) * colsB) + 
-        						(blockIdx.x * blockDim.x) + threadIdx.x] = tmp;
+                                (blockIdx.x * blockDim.x) + threadIdx.x] = tmp;
     }
 
 }
@@ -164,7 +164,7 @@ __global__ void kernelSharedMemMatMult(double *A, int rowsA, int colsA,
 * kernelMatMult : 
 ******************************************************************************/
 __global__ void kernelMatMult(double *a, int rowsA, int colsA,
-							  double *b, int rowsB, int colsB, double *c)
+                              double *b, int rowsB, int colsB, double *c)
 {
   
   int col = blockIdx.y * blockDim.y + threadIdx.y;
@@ -187,14 +187,14 @@ __global__ void kernelMatMult(double *a, int rowsA, int colsA,
 * kernelComputeYW : 
 ******************************************************************************/
 __global__ void kernelComputeYW(double *Y, double *W, double *V, double *B,
-							    int tileStartColumn)
+                                int tileStartColumn)
 {
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (index >= M-tileStartColumn)
-		return;
+    if (index >= M-tileStartColumn)
+        return;
 
-	Y[index*tileSize+0] = V[index*tileSize+0];
+    Y[index*tileSize+0] = V[index*tileSize+0];
     W[index*tileSize+0] = -B[0]*V[index*tileSize+0];
 
 }
@@ -203,18 +203,18 @@ __global__ void kernelComputeYW(double *Y, double *W, double *V, double *B,
 * kernelCurrentWY : 
 ******************************************************************************/
 __global__ void kernelCurrentWY(double *currentW, double *currentYPrime, 
-								double *Y, double *W, 
-								int columnInTile, int tileStartColumn)
+                                double *Y, double *W, 
+                                int columnInTile, int tileStartColumn)
 {
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int col = blockIdx.y * blockDim.y + threadIdx.y;
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
 
-	if (row >= (M-tileStartColumn) || col >= columnInTile )
-		return;
+    if (row >= (M-tileStartColumn) || col >= columnInTile )
+        return;
 
-	// Y has to be transposed
-	currentYPrime[row+ col*(M-tileStartColumn)] =  Y[row*tileSize+col]; 
-	currentW[row*columnInTile+col] = W[row*tileSize+col];
+    // Y has to be transposed
+    currentYPrime[row+ col*(M-tileStartColumn)] =  Y[row*tileSize+col]; 
+    currentW[row*columnInTile+col] = W[row*tileSize+col];
 
 }
 
@@ -222,14 +222,14 @@ __global__ void kernelCurrentWY(double *currentW, double *currentYPrime,
 * kernelExtractVnew : 
 ******************************************************************************/
 __global__ void kernelExtractVnew(double *vNew, double *V, 
-								  int columnInTile, int tileStartColumn)
+                                  int columnInTile, int tileStartColumn)
 {
-	int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (index >= M-tileStartColumn)
-		return;
+    if (index >= M-tileStartColumn)
+        return;
 
-	vNew[index] = V[index*tileSize+columnInTile];
+    vNew[index] = V[index*tileSize+columnInTile];
 
 }
 
@@ -237,35 +237,35 @@ __global__ void kernelExtractVnew(double *vNew, double *V,
 * kernelComputezWY : 
 ******************************************************************************/
 __global__ void kernelComputezWY(double *z, double *W, double *Y, double *vNew, 
-								 double *B, double *productWYprimeVnew, 
-								 int columnInTile, int tileStartColumn)
+                                 double *B, double *productWYprimeVnew, 
+                                 int columnInTile, int tileStartColumn)
 {
 
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (row >= M-tileStartColumn)
-		return;
+    if (row >= M-tileStartColumn)
+        return;
 
-	z[row] = -B[columnInTile] * vNew[row] - B[columnInTile] * 
-											productWYprimeVnew[row];
-	W[row*tileSize+columnInTile] = z[row];
-	Y[row*tileSize+columnInTile] = vNew[row];
+    z[row] = -B[columnInTile] * vNew[row] - B[columnInTile] * 
+                                            productWYprimeVnew[row];
+    W[row*tileSize+columnInTile] = z[row];
+    Y[row*tileSize+columnInTile] = vNew[row];
 }
 
 /******************************************************************************
 * kernelComputeWprime : 
 ******************************************************************************/
 __global__ void kernelComputeWprime(double *W, double *Wprime,
-									int tileStartColumn)
+                                    int tileStartColumn)
 {
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;		
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;       
 
-	if (row >= (M-tileStartColumn) || columnInTile>= tileSize)
-		return;
+    if (row >= (M-tileStartColumn) || columnInTile>= tileSize)
+        return;
 
-	Wprime[columnInTile*(M-tileStartColumn) + row] = W[row*tileSize + 
-															columnInTile];
+    Wprime[columnInTile*(M-tileStartColumn) + row] = W[row*tileSize + 
+                                                            columnInTile];
 
 }
 
@@ -274,20 +274,20 @@ __global__ void kernelComputeWprime(double *W, double *Wprime,
 * kernelPartialInput : 
 ******************************************************************************/
 __global__ void kernelPartialInput(double *partialInput, double *input,
-								   int tileStartColumn)
+                                   int tileStartColumn)
 {
 
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;		
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;       
 
-	if (row >= (M-tileStartColumn) || 
-		columnInTile>= ((N - tileStartColumn - tileSize)) )
-		return;
+    if (row >= (M-tileStartColumn) || 
+        columnInTile>= ((N - tileStartColumn - tileSize)) )
+        return;
 
-	partialInput[row*(N-tileStartColumn-tileSize) + columnInTile] = 
-										input[(row+tileStartColumn) * N + 
-												columnInTile + tileStartColumn 
-												+ tileSize];
+    partialInput[row*(N-tileStartColumn-tileSize) + columnInTile] = 
+                                        input[(row+tileStartColumn) * N + 
+                                                columnInTile + tileStartColumn 
+                                                + tileSize];
 }
 
 
@@ -295,32 +295,32 @@ __global__ void kernelPartialInput(double *partialInput, double *input,
 * kernelFinalInputUpdate : 
 ******************************************************************************/
 __global__ void kernelFinalInputUpdate(double *productYWprimePartialInput,
-									   double *input, int tileStartColumn)
+                                       double *input, int tileStartColumn)
 {
 
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
-	int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;		
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;       
 
-	if (row >= (M-tileStartColumn) || 
-		columnInTile>= ((N - tileStartColumn - tileSize)) )
-		return;
+    if (row >= (M-tileStartColumn) || 
+        columnInTile>= ((N - tileStartColumn - tileSize)) )
+        return;
 
-	input[(row+tileStartColumn)*N + columnInTile + tileStartColumn + tileSize] += 
-	productYWprimePartialInput[row*(N-tileStartColumn-tileSize) + columnInTile];
+    input[(row+tileStartColumn)*N + columnInTile + tileStartColumn + tileSize] += 
+    productYWprimePartialInput[row*(N-tileStartColumn-tileSize) + columnInTile];
 }
 
 /******************************************************************************
 * kernelMergeLowerUpper : Combine upper and lower triangular matrices to get 
-				   final result matrix
+                   final result matrix
 ******************************************************************************/
 __global__ void kernelMergeLowerUpper(double *input, double *U)
 {
-	int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;		
-	int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int columnInTile = blockIdx.y * blockDim.y + threadIdx.y;       
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
 
-	if (row >= M || columnInTile>= N || row <= columnInTile)
-		return;
+    if (row >= M || columnInTile>= N || row <= columnInTile)
+        return;
 
-	input[row*N + columnInTile] = U[row*N + columnInTile];
+    input[row*N + columnInTile] = U[row*N + columnInTile];
 
 }
